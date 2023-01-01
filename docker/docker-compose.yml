@@ -52,7 +52,7 @@ services:
         image: mysql:5.7.22
         restart: always
         tty: true
-        #command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --init-file /docker-entrypoint-initdb.d/init.sql
+        command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --init-file /docker-entrypoint-initdb.d/init.sql
         environment:
             MYSQL_DATABASE: prezo
             MYSQL_ROOT_PASSWORD: 123456
@@ -75,7 +75,7 @@ services:
         image: mysql:8.0.33-debian
         restart: always
         tty: true
-        #command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --init-file /docker-entrypoint-initdb.d/init.sql
+        command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --init-file /docker-entrypoint-initdb.d/init.sql
         environment:
             MYSQL_DATABASE: ocr
             MYSQL_ROOT_PASSWORD: 123456
@@ -155,13 +155,15 @@ services:
             context: .
             dockerfile: ./docker_files/Dockerfile.App
         volumes:
+            - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
             - ./sources/app:/var/www/html
         restart: unless-stopped
         tty: true
         environment:
-            ACTIVE_CRON: "false"
+            ACTIVE_CRON: 'false'
         ports:
             - "127.0.1.130:80:80"
+            - "9040:9040"
         extra_hosts:
             - "api.prezo.box:127.0.1.110"
             - "ocr.prezo.box:127.0.1.120"
@@ -361,22 +363,3 @@ volumes:
     #     driver: local
     # prezo-prometheus:
     #     driver: local
-
-
-# nmcli dev show | grep 'IP4.DNS'
-
-# docker run busybox nslookup google.com
-
-# Descomente la siguiente línea en/etc/default/docker
-# DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4"
-
-# Reinicie el servicio Docker sudo service docker restart
-
-# Elimine cualquier imagen que haya almacenado en caché la configuración de DNS no válida.
-
-# Vuelva a construir y el problema debería resolverse.
-
-# sudo iptables -t nat -F POSTROUTING
-# https://medium.com/@faithfulanere/solved-docker-build-could-not-resolve-archive-ubuntu-com-apt-get-fails-to-install-anything-9ea4dfdcdcf2
-
-# https://stackoverflow.com/questions/40082608/how-to-delete-interface-docker0
