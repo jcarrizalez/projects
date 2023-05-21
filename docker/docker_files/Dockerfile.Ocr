@@ -1,0 +1,88 @@
+FROM php:8.1-fpm
+
+LABEL maintainer="Prezo Ocr"
+
+# Arguments defined in docker-compose.yml
+ARG user
+ARG uid
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    sudo \
+    cron \
+    imagemagick \
+    ghostscript \
+    git \
+    telnet \
+    openssl \
+    aptitude \
+    openssh-server \
+    nano \
+    locales \
+    libcurl4-openssl-dev \
+    #libmemcached11 \
+    #libmemcachedutil2 \
+    #libmemcached-dev \
+    sqlite3 \
+# IMAGES
+    autoconf \
+    build-essential \
+    apt-utils \
+    zlib1g-dev \
+    libzip-dev \
+    unzip \
+    zip \
+    libmagick++-dev \
+    libmagickwand-dev \
+    libpq-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libonig-dev \
+    libwebp-dev \
+    libxpm-dev \
+    curl \
+    tesseract-ocr \
+    tesseract-ocr-all
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include/ --enable-gd
+
+RUN docker-php-ext-install gd intl pdo_mysql pdo_pgsql mysqli zip soap xml curl sockets mbstring exif pcntl bcmath
+
+RUN pecl install imagick
+
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+RUN docker-php-ext-enable imagick
+
+#RUN pecl install memcached && docker-php-ext-enable memcached
+
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Create system user to run Composer and Artisan Commands
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+
+RUN mkdir -p /home/$user/.composer && chown -R $user:$user /home/$user
+
+RUN adduser $user sudo
+
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+ADD ./addons/ /home/$user/addons
+
+ADD ./ssh_keys/ /home/$user/.ssh
+
+RUN cp /home/$user/addons/.gitconfig /home/$user/.gitconfig
+
+RUN cat /home/$user/addons/ocr/policy.xml > /etc/ImageMagick-6/policy.xml
+
+# Set working directory
+WORKDIR /var/www
+
+USER $user
+
+# kubectl cp example-pod:/tmp/example-dir ./example-dir

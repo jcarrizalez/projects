@@ -1,0 +1,5 @@
+# This is the per-user Git configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+    name = YOUR_NAME
+    email = YOUR_EMAIL@gmail.com
