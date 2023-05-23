@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+## chmod +x bashrc
+## ./bashrc
+
+ROUTE='~/develop/prezo/sistemas';
+
+alias prezo="${ROUTE}/docker/prezo.sh"
+alias sistemas="cd ${ROUTE}"
+alias ocr="cd ${ROUTE}/ocr"
+alias api="cd ${ROUTE}/api"
+alias app="cd ${ROUTE}/app"
+alias home="cd ${ROUTE}/home"
+alias panel="cd ${ROUTE}/panel"
+alias pods="ssh -i ~/.ssh/it-aws.pem prezo@bastion-a.plt.prezo.info"

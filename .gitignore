@@ -1,0 +1,7 @@
+docker/backups/
+docker/ssh_keys/
+api/
+ocr/
+app/
+home/
+panel/

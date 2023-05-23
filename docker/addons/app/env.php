@@ -8,7 +8,7 @@ $_ENV['APP_MAINTENANCE'] = false;
 $_ENV['ASSETS_VERSION'] = date('ymdhis');
 
 // Database
-$_ENV['DB_HOST'] = 'prezo-mysql';
+$_ENV['DB_HOST'] = 'prezo-mysql-5.7';
 $_ENV['DB_NAME'] = 'prezo';
 $_ENV['DB_PORT'] = 3306;
 $_ENV['DB_USERNAME'] = 'develop';
@@ -28,13 +28,14 @@ $_ENV['GOOGLE_ANALYITCS'] = false;
 $_ENV['SUPPORT_CHAT_ON'] = false;
 
 // API Prezo
+//$_ENV['API_URL'] = 'http://api.prezo.box';
 $_ENV['API_URL'] = 'http://prezo-nginx-api';
 $_ENV['API_TOKEN'] = '591|uKcPr6kcejPtw2eZk1GbDS4hwJLli7Y8MSWWzyCk';
 
 // OCR Prezo
 $_ENV['OCR_ON'] = true;
-$_ENV['OCR_API_URL'] = 'http://127.0.1.120/api';
-$_ENV['OCR_APP_URL'] = 'http://127.0.1.120/app';
+$_ENV['OCR_API_URL'] = 'http://ocr.prezo.box/api';
+$_ENV['OCR_APP_URL'] = 'http://ocr.prezo.box/app';
 
 // YII Mail
 $_ENV['YII_MAIL_HOST'] = 'localhost';
