@@ -4,7 +4,7 @@
 
 ROUTE='~/develop/prezo/sistemas';
 
-alias prezo="${ROUTE}/docker/prezo.sh"
+alias prezo="${ROUTE}/docker/prezo"
 alias sistemas="cd ${ROUTE}"
 alias ocr="cd ${ROUTE}/ocr"
 alias api="cd ${ROUTE}/api"
