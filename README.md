@@ -1,8 +1,8 @@
-# proyects
+# projects
 
 ```bash
-git clone https://github.com/jcarrizalez/proyects.git;
-cd proyects;
+git clone https://github.com/jcarrizalez/projects.git;
+cd projects;
 ```
 
 ```bash
@@ -17,10 +17,6 @@ git clone https://github.com/futureisanattitude/prezo.git app;
 cd docker;
 
 docker-compose up -d;
-
-docker-compose exec prezo-mysql-5.7 bash -c 'mysql -u$MYSQL_USER prezo < prezo.sql';
-
-docker-compose exec prezo-mysql-8.0 bash -c 'mysql -u$MYSQL_USER ocr < ocr.sql';
 ```
 
 add in : /etc/hosts
@@ -40,8 +36,8 @@ add in : /etc/hosts
 
 add in : ~/.bashrc
 ```bash
-#prezo
-source ~/develop/prezo/sistemas/docker/bashrc
+#prezo -> PATH_USER
+source ~/develop/prezo/projects/docker/bashrc
 ```
 
 edit
