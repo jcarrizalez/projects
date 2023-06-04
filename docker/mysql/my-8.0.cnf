@@ -3,3 +3,6 @@ general_log = 1
 general_log_file = /var/lib/mysql/general.log
 
 default_authentication_plugin=caching_sha2_password
+
+default_authentication-plugin=mysql_native_password
+character_set_server=utf8

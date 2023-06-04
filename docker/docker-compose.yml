@@ -52,10 +52,11 @@ services:
         image: mysql:5.7.22
         restart: always
         tty: true
-        command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --init-file /docker-entrypoint-initdb.d/init.sql
+        #command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --init-file /docker-entrypoint-initdb.d/init.sql
         environment:
             MYSQL_DATABASE: prezo
-            MYSQL_PWD: 123456
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_PASSWORD: 123456
             MYSQL_USER: develop
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
@@ -74,10 +75,11 @@ services:
         image: mysql:8.0.33-debian
         restart: always
         tty: true
-        command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --init-file /docker-entrypoint-initdb.d/init.sql
+        #command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --init-file /docker-entrypoint-initdb.d/init.sql
         environment:
             MYSQL_DATABASE: ocr
-            MYSQL_PWD: 123456
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_PASSWORD: 123456
             MYSQL_USER: develop
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
@@ -303,8 +305,49 @@ services:
             - prezo-redis
             - prezo-nginx-api
             - prezo-meilisearch
-    
-#Volumes
+
+    # prezo-grafana:
+    #     image: grafana/grafana:8.0.6
+    #     container_name: prezo-grafana
+    #     restart: unless-stopped
+    #     volumes:
+    #         - prezo-grafana:/var/lib/grafana
+    #     ports:
+    #         - "127.0.1.105:3000:3000"
+
+    # prezo-prometheus:
+    #     image: prom/prometheus:v2.28.1
+    #     container_name: prezo-prometheus
+    #     restart: unless-stopped
+    #     volumes:
+    #         - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    #         - prezo-prometheus:/prometheus
+    #     ports:
+    #         - "127.0.1.106:9090:9090"
+    #     command:
+    #         - '--config.file=/etc/prometheus/prometheus.yml'
+    #         - '--storage.tsdb.path=/prometheus'
+    #         - '--storage.tsdb.retention.time=1y'
+    #         - '--web.enable-lifecycle'
+
+    # prezo-cadvisor:
+    #     image: gcr.io/cadvisor/cadvisor:latest
+    #     container_name: prezo-cadvisor
+    #     restart: unless-stopped
+    #     ports:
+    #         - "127.0.1.107:8080:8080"
+    #     volumes:
+    #         - /:/rootfs:ro
+    #         - /var/run:/var/run:rw
+    #         - /sys:/sys:ro
+    #         - /var/lib/docker/:/var/lib/docker:ro
+    #     #   ###### linux
+    #     #   # command:
+    #     #   # - '--path.rootfs=/host'
+    #     #   # pid: host
+    #     #   # volumes:
+    #     #   # - '/:/host:ro,rslave'
+
 volumes:
     prezo-s3:
         driver: local
@@ -314,4 +357,26 @@ volumes:
         driver: local
     prezo-meilisearch:
         driver: local
-        
+    # prezo-grafana:
+    #     driver: local
+    # prezo-prometheus:
+    #     driver: local
+
+
+# nmcli dev show | grep 'IP4.DNS'
+
+# docker run busybox nslookup google.com
+
+# Descomente la siguiente línea en/etc/default/docker
+# DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4"
+
+# Reinicie el servicio Docker sudo service docker restart
+
+# Elimine cualquier imagen que haya almacenado en caché la configuración de DNS no válida.
+
+# Vuelva a construir y el problema debería resolverse.
+
+# sudo iptables -t nat -F POSTROUTING
+# https://medium.com/@faithfulanere/solved-docker-build-could-not-resolve-archive-ubuntu-com-apt-get-fails-to-install-anything-9ea4dfdcdcf2
+
+# https://stackoverflow.com/questions/40082608/how-to-delete-interface-docker0
