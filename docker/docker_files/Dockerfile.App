@@ -17,19 +17,28 @@ RUN echo "short_open_tag = On" >> /usr/local/etc/php/conf.d/short_open_tag.ini
 RUN echo "deb http://archive.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list
 
 # Instala la extensión MySQL para PHP
-RUN apt-get update && apt-get install -yq default-libmysqlclient-dev vim inetutils-ping mariadb-client net-tools cron nano sudo
+RUN apt-get update && apt-get install -yq default-libmysqlclient-dev vim inetutils-ping mariadb-client net-tools cron nano sudo git
 
 RUN apt install -yq apache2 libapache2-mod-fcgid
+
+
+RUN git clone https://github.com/xdebug/xdebug.git \
+&& cd xdebug \
+&& git checkout tags/XDEBUG_2_5_5 \
+&& phpize \
+&& ./configure --enable-xdebug \
+&& make \
+&& make install
+
+#RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
+RUN echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_host = host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install mysql mysqli pdo pdo_mysql 
-
-#RUN docker-php-ext-install bz2 calendar ctype curl dom exif fileinfo ftp gd gettext gmp iconv mbstring mcrypt mysqlnd pdo phar posix shmop simplexml soap sockets sqlite3 sysvmsg sysvsem sysvshm tokenizer xml xmlwriter xsl zip mysqli mysql pdo_mysql pdo_sqlite wddx xmlreader xmlrpc json
-
-# Copia los archivos de la aplicación al directorio /var/www/html en la imagen
-#COPY . /var/www/html/
 
 # Create system user to run Composer and Artisan Commands
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
@@ -47,30 +56,22 @@ ADD ./ssh_keys/ /home/$user/.ssh
 RUN cp /home/$user/addons/app/www.conf /usr/local/etc/php-fpm.d/www.conf
 RUN cp /home/$user/addons/app/vhost.conf /etc/apache2/sites-enabled/000-default.conf
 RUN cp /home/$user/addons/app/.htaccess /root/.htaccess
-#RUN cp /home/$user/addons/app/env.php /root/env.php
 RUN cp /home/$user/addons/app/start.sh /start.sh
 
-#COPY www.conf /usr/local/etc/php-fpm.d/www.conf
-#COPY vhost.conf /etc/apache2/sites-enabled/000-default.conf
-#COPY .htaccess /root
-#COPY env.php /root
-
 RUN a2enmod rewrite proxy_fcgi
-
-#RUN mv /var/www/html/protected/config/main.php.dist /var/www/html/protected/config/main.php
-#RUN mv /var/www/html/protected/config/console.php.dist /var/www/html/protected/config/console.php
 
 EXPOSE 80
 
 # Set working directory
-#WORKDIR /var/www
+WORKDIR /var/www/html
 
 RUN chmod +x /start.sh
-#USER $user
 
 
 #COPY start.sh /
 ENTRYPOINT [ "/start.sh" ]
 
+#USER $user
+#chmod +x protected/yiic;protected/yiic queue work --queue=ocr --load=1;
 
 # echo "deb http://archive.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list

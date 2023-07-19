@@ -1,0 +1,21 @@
+version: 2
+authtoken: 2KobCNklUPCXRfCrP1XQMGx0aGa_2oWEJgbr8Uhun5GfWCxA4
+tunnels:
+  http:
+    addr: 80
+    proto: http
+    #web_addr: localhost:40401
+
+# Comment: >
+#   info service:
+#     - url: https://dashboard.ngrok.com/login
+#     - username: paretodeveloper@gmail.com
+#     - password: digbang123.
+#   start:
+#     - necesitas el binario ngrok en tu maquina
+#     - ejecutar: /opt/ngrok start --config=./ngrok.yml prezo-http
+#         output:
+#           - Forwarding  http://0358-181-44-118-198.ngrok.io -> http://localhost:80
+#   use_example:
+#     - http://0358-181-44-118-198.ngrok.io/backoffice
+#     - http://0358-181-44-118-198.ngrok.io/webhooks/unnax/bank-reader/eventType

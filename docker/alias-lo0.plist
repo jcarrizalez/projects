@@ -1,0 +1,18 @@
+<plist version="1.0">
+	<dict>
+		<key>Label</key>
+		<string>{{ALIAS}}</string>
+		<key>ProgramArguments</key>
+		<array>
+			<string>/sbin/ifconfig</string>
+			<string>lo0</string>
+			<string>alias</string>
+			<string>{{IP}}</string>
+			<string>netmask</string>
+			<string>255.255.255.0</string>
+			<string>up</string>
+		</array>
+		<key>RunAtLoad</key>
+		<true/>
+	</dict>
+</plist>

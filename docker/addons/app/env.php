@@ -3,7 +3,7 @@ date_default_timezone_set("Europe/Madrid");
 // Application
 $_ENV['APP_URL'] = 'http://app.prezo.box';
 $_ENV['APP_ENV'] = 'dev';
-$_ENV['APP_DEBUG'] = true;
+$_ENV['APP_DEBUG'] = false;
 $_ENV['APP_MAINTENANCE'] = false;
 $_ENV['ASSETS_VERSION'] = date('ymdhis');
 
@@ -30,7 +30,7 @@ $_ENV['SUPPORT_CHAT_ON'] = false;
 // API Prezo
 //$_ENV['API_URL'] = 'http://api.prezo.box';
 $_ENV['API_URL'] = 'http://prezo-nginx-api';
-$_ENV['API_TOKEN'] = 'UN_TOKEN_VALIDO';
+$_ENV['API_TOKEN'] = '591|uKcPr6kcejPtw2eZk1GbDS4hwJLli7Y8MSWWzyCk';
 
 // OCR Prezo
 $_ENV['OCR_ON'] = true;
@@ -46,7 +46,7 @@ $_ENV['YII_MAIL_ENCRYPTION'] = 'ssl';
 
 //  Mailersend
 $_ENV['MAIL_ON'] = false;
-$_ENV['MAIL_FROM'] = 'info@prezo.box';
+$_ENV['MAIL_FROM'] = 'info@prezo.es';
 $_ENV['MAIL_URL'] = 'https://api.mailersend.com/v1';
 $_ENV['MAIL_TOKEN'] = 'MAILERSENDTOKEN';
 
@@ -57,7 +57,7 @@ $_ENV['SOFYMAN_ON'] = true;
 $_ENV['MISSTIPSI_ON'] = true;
 $_ENV['REVO_ON'] = false;
 $_ENV['REVO_URL'] = 'https://integrations.revoxef.works/api/external/v2';
-$_ENV['REVO_TOKEN'] = 'UN_TOKEN_VALIDO';
+$_ENV['REVO_TOKEN'] = 'd2jMfMKraKK8Td0TRF8tDL3zZpAzGDQnoRHhGVRkUZxcwu8PYBc2aPmZazfc';
 $_ENV['CONTASIMPLE_ON'] = true;
 $_ENV['CONTASIMPLE_URL'] = 'https://api.contasimple.com/api/';
 $_ENV['CONTASIMPLE_VERSION'] = 'v2';

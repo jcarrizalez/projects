@@ -3,9 +3,10 @@
 ## ./bashrc
 
 #aca va el nombre path del usuario
-ROUTE='~/develop/prezo/sistemas';
+ROUTE='~/develop/prezo/projects';
 
-alias prezo="${ROUTE}/docker/prezo"
+alias prezo="${ROUTE}/docker/prezo.sh"
+alias p=prezo
 alias projects="cd ${ROUTE}"
 alias ocr="cd ${ROUTE}/ocr"
 alias api="cd ${ROUTE}/api"
