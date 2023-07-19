@@ -1,5 +1,5 @@
 version: 2
-authtoken: 2KobCNklUPCXRfCrP1XQMGx0aGa_2oWEJgbr8Uhun5GfWCxA4
+authtoken: token_personal
 tunnels:
   http:
     addr: 80
