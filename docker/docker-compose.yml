@@ -99,7 +99,7 @@ services:
         restart: unless-stopped
         tty: true
         volumes:
-            - ./backups:/var/www/public/backups
+            #- ./backups:/var/www/public/backups
             - ./ngrok:/opt/ngrok
             - ./ngrok.yml:/opt/ngrok.yml
             - ./sources/api:/var/www
@@ -165,7 +165,7 @@ services:
             ACTIVE_CRON: 'false'
         ports:
             - "127.0.0.8:80:80"
-            - "9040:9040"
+            #- "9040:9040"
         extra_hosts:
             - "api.prezo.box:127.0.0.4"
             - "ocr.prezo.box:127.0.0.5"
@@ -212,7 +212,8 @@ services:
             - prezo-meilisearch
         extra_hosts:
             - "hooks.slack.com:54.94.183.148"
-            - "prezo-sandbox.s3.eu-west-3.amazonaws.com:52.95.155.64"
+            - "api.openai.com:104.18.7.192"
+            #- "eu-west-3.amazonaws.com:15.236.178.53"
         dns:
             - 8.8.8.8
             - 8.8.4.4
@@ -241,6 +242,7 @@ services:
             - prezo-mysql-5.7
             - prezo-redis
             - prezo-meilisearch
+            - prezo-nginx-ocr
         depends_on:
             - prezo-s3
             - prezo-mysql-5.7

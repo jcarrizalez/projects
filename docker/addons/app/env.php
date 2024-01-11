@@ -71,3 +71,6 @@ $_ENV['AWS_SECRET_ACCESS_KEY'] = '';
 $_ENV['AWS_DEFAULT_REGION'] = '';
 $_ENV['AWS_BUCKET'] = '';
 $_ENV['AWS_USE_PATH_STYLE_ENDPOINT'] = '';
+
+//Invetories
+$_ENV['INVENTORY_CHECK_DATE'] = false;
