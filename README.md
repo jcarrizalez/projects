@@ -46,7 +46,7 @@ add in : /etc/hosts
 127.0.0.7       panel.prezo.box
 ```
 
-add in : ~/.bashrc
+add in : ~/.zshrc or ~/.bashrc
 ```bash
 #prezo -> PATH_USER
 source ~/develop/prezo/projects/docker/bashrc
